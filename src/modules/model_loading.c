@@ -1,5 +1,14 @@
 #include "model_loading.h"
 
+int main(int argc, char *argv[]) {
+  obj_data data = {0, NULL, 0, NULL};
+  char *filename = "../tmp/cube.obj";
+  parse_obj_file(filename, &data);
+  print_data(&data);
+  data_destructor(&data);
+  return 0;
+}
+
 int parse_obj_file(char *filename, obj_data *data) {
   if (filename == NULL || data == NULL) {
     return ERROR;
@@ -132,4 +141,24 @@ int parse_vertices_and_indices(FILE *file, obj_data *data) {
   }
 
   return parse_status;
+}
+
+void print_data(obj_data *data) {
+  // printing vertices
+  printf("Amount of vertex: %ld\n", data->vertices_count);
+  for (int i = 0; i < data->vertices_count; i++) {
+    printf("%lf ", data->vertices_arr[i]);
+    if ((i + 1) % 3 == 0) {
+      printf("\n");
+    }
+  }
+  printf("\n");
+  // printing vertex_indices
+  printf("Amount of vertex_indices: %ld\n", data->vertex_indices_count);
+  for (int i = 0; i < data->vertex_indices_count; i++) {
+    printf("%d ", data->vertex_indices_arr[i]);
+    if ((i + 1) % 4 == 0) {
+      printf("\n");
+    }
+  }
 }
