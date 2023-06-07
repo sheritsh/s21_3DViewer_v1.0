@@ -99,7 +99,7 @@ int parse_vertices_and_indices(FILE *file, obj_data *data) {
     if (strncmp(line, "v ", 2) == 0) {
       vertex_counter++;
       double x, y, z;
-      sscanf(line, "%lf %lf %lf", &x, &y, &z);
+      sscanf(line, "v %lf %lf %lf", &x, &y, &z);
       data->vertices_arr[i++] = x;
       data->vertices_arr[i++] = y;
       data->vertices_arr[i++] = z;
@@ -146,7 +146,7 @@ int parse_vertices_and_indices(FILE *file, obj_data *data) {
 void print_data(obj_data *data) {
   // printing vertices
   printf("Amount of vertex: %ld\n", data->vertices_count);
-  for (int i = 0; i < data->vertices_count; i++) {
+  for (int i = 0; i < data->vertices_count * 3; i++) {
     printf("%lf ", data->vertices_arr[i]);
     if ((i + 1) % 3 == 0) {
       printf("\n");
@@ -155,9 +155,9 @@ void print_data(obj_data *data) {
   printf("\n");
   // printing vertex_indices
   printf("Amount of vertex_indices: %ld\n", data->vertex_indices_count);
-  for (int i = 0; i < data->vertex_indices_count; i++) {
+  for (int i = 0; i < data->vertex_indices_count * 2; i++) {
     printf("%d ", data->vertex_indices_arr[i]);
-    if ((i + 1) % 4 == 0) {
+    if ((i + 1) % 6 == 0) {
       printf("\n");
     }
   }
