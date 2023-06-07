@@ -1,13 +1,13 @@
 #include "model_loading.h"
 
-int main(int argc, char *argv[]) {
-  obj_data data = {0, NULL, 0, NULL};
-  char *filename = "../tmp/cube.obj";
-  parse_obj_file(filename, &data);
-  print_data(&data);
-  data_destructor(&data);
-  return 0;
-}
+// int main(int argc, char *argv[]) {
+//   obj_data data = {0, NULL, 0, NULL};
+//   char *filename = "../tmp/bison_pose1.obj";
+//   parse_obj_file(filename, &data);
+//   print_data(&data);
+//   data_destructor(&data);
+//   return 0;
+// }
 
 int parse_obj_file(char *filename, obj_data *data) {
   if (filename == NULL || data == NULL) {
@@ -105,6 +105,7 @@ int parse_vertices_and_indices(FILE *file, obj_data *data) {
       data->vertices_arr[i++] = z;
     } else if (strncmp(line, "f ", 2) == 0) {
       int first_index = 0;
+      bool is_first_index = false;
       char *vertex_index = strtok(line + 2, " ");
       while (vertex_index != NULL) {
         int index_val = atoi(vertex_index);
@@ -115,8 +116,9 @@ int parse_vertices_and_indices(FILE *file, obj_data *data) {
             index_val += vertex_counter + 1;
           }
           data->vertex_indices_arr[vertex_indices_counter] = index_val - 1;
-          if (!first_index) {
+          if (!is_first_index) {
             first_index = index_val - 1;
+            is_first_index = true;
           } else {
             data->vertex_indices_arr[++vertex_indices_counter] = index_val - 1;
           }
@@ -129,7 +131,6 @@ int parse_vertices_and_indices(FILE *file, obj_data *data) {
       vertex_indices_counter++;
     }
   }
-
   if (line) {
     free(line);
     line = NULL;
