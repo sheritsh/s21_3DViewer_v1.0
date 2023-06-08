@@ -11,6 +11,7 @@ CONFIG += c++17
 SOURCES += \
     ../../modules/affine_transformations.c \
     ../../modules/model_loading.c \
+    glwidget.cpp \
     main.cpp \
     mainwindow.cpp
 
@@ -18,6 +19,7 @@ HEADERS += \
     ../../modules/affine_transformations.h \
     ../../modules/model_loading.h \
     ../../modules/s21_3dviewer.h \
+    glwidget.h \
     mainwindow.h
 
 FORMS += \
