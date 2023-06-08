@@ -111,7 +111,7 @@ int parse_vertices_and_indices(FILE *file, obj_data *data) {
         int index_val = atoi(vertex_index);
         if (index_val) {
           // If an index is negative then it relatively refers to the end
-          // of the vertex list, -1 referring to the last element.
+          // of the vertex list. For example -1 referring to the last element.
           if (index_val < 0) {
             index_val += vertex_counter + 1;
           }
@@ -147,7 +147,7 @@ int parse_vertices_and_indices(FILE *file, obj_data *data) {
 void print_data(obj_data *data) {
   // printing vertices
   printf("Amount of vertex: %ld\n", data->vertices_count);
-  for (int i = 0; i < data->vertices_count * 3; i++) {
+  for (int i = 0; i < (int)data->vertices_count * 3; i++) {
     printf("%lf ", data->vertices_arr[i]);
     if ((i + 1) % 3 == 0) {
       printf("\n");
@@ -156,7 +156,7 @@ void print_data(obj_data *data) {
   printf("\n");
   // printing vertex_indices
   printf("Amount of vertex_indices: %ld\n", data->vertex_indices_count);
-  for (int i = 0; i < data->vertex_indices_count * 2; i++) {
+  for (int i = 0; i < (int)data->vertex_indices_count * 2; i++) {
     printf("%d ", data->vertex_indices_arr[i]);
     if ((i + 1) % 6 == 0) {
       printf("\n");

@@ -23,7 +23,7 @@ void GlWidget::paintGL()
 
 void GlWidget::parse_obj()
 {
-    char *filename = "/Volumes/sheritsh/C8_3DViewer_v1.0-1/src/tmp/skull.obj";
+    char *filename = "/Volumes/sheritsh/C8_3DViewer_v1.0-1/src/tmp/lamp.obj";
     parse_obj_file(filename, &this->data);
     update();
 //    print_data(&this->data);
