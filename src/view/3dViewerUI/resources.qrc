@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/res">
+        <file>assets/img/3d.svg</file>
+        <file>assets/fonts/SpaceCrusaders-x3DP0.ttf</file>
+        <file>assets/fonts/SpaceCrusadersItalic-ZV1Zx.ttf</file>
+        <file>assets/img/footerline.png</file>
+        <file>assets/fonts/Montserrat-Regular.ttf</file>
+        <file>assets/img/cross.svg</file>
+        <file>assets/img/minimize.svg</file>
+    </qresource>
+</RCC>
