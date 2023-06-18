@@ -4,7 +4,9 @@
 
 #include <QMainWindow>
 #include <QWidget>
-#include <QFlags>
+#include <glwidget.h>
+#include <QDialog>
+#include <QFileDialog>
 
 
 
@@ -18,11 +20,26 @@ class MainWindow : public QMainWindow
 
 public:
     MainWindow(QWidget *parent = nullptr);
+    int vertices_count;
+    int edges_count;
     ~MainWindow();
 
 
+private slots:
+    void on_openObjBtn_clicked();
+    void on_renderBtn_clicked();
+
 private:
+    GlWidget object3d;
+    void set_mainwindow_attributes();
+    void set_fonts();
+    void bind_slots();
     Ui::MainWindow *ui;
+    // Windows transition
+    QPoint cur_pos;
+    QPoint new_pos;
+    void mousePressEvent(QMouseEvent *event);
+    void mouseMoveEvent(QMouseEvent *event);
 
 };
 #endif // MAINWINDOW_H
