@@ -65,6 +65,11 @@ void GlWidget::mouseMoveEvent(QMouseEvent *event) {
 
 }
 
+void GlWidget::render_ui_stats()
+{
+
+}
+
 void GlWidget::mousePressEvent(QMouseEvent *event) {
 
 }

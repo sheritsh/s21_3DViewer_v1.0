@@ -40,10 +40,12 @@ void MainWindow::set_fonts()
     QString family3 = QFontDatabase::applicationFontFamilies(id3).at(0);
     QFont footerFont(family3);
 
-    // apply
+    // applying
     ui->h1->setFont(titleFont);
     ui->obj_info->setFont(mainFont);
-    ui->obj_info->setFont(footerFont);
+    ui->filename_val->setFont(footerFont);
+    ui->edges_numb_val->setFont(footerFont);
+    ui->vert_numb_val->setFont(footerFont);
 }
 
 void MainWindow::bind_slots()
@@ -66,6 +68,8 @@ void MainWindow::on_renderBtn_clicked()
     std::string std_filename = ui->pathObj->text().toStdString();
     ui->OpenGlWidget->filename = (char *)std_filename.c_str();
     ui->OpenGlWidget->parse_obj();
+    ui->vert_numb_val->setText();
+    ui->edges_numb_val->setText();
 }
 
 void MainWindow::mouseMoveEvent(QMouseEvent *event) {

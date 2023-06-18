@@ -635,7 +635,7 @@ border: none;
        <string notr="true"/>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="vert_tab">
        <property name="styleSheet">

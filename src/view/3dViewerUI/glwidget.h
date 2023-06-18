@@ -10,6 +10,7 @@
 #include <QWidget>
 #include <iostream>
 #include <QMessageBox>
+#include <mainwindow.h>
 
 extern "C" {
 #include "../../modules/model_loading.h"
@@ -34,6 +35,7 @@ private:
     void set_normalize_coef();
     void mousePressEvent(QMouseEvent *event) override;
     void mouseMoveEvent(QMouseEvent *event) override;
+    void render_ui_stats();
 
 
 
