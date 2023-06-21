@@ -1,14 +1,5 @@
 #include "model_loading.h"
 
-// int main(int argc, char *argv[]) {
-//   obj_data data = {0, NULL, 0, NULL};
-//   char *filename = "../tmp/bison_pose1.obj";
-//   parse_obj_file(filename, &data);
-//   print_data(&data);
-//   data_destructor(&data);
-//   return 0;
-// }
-
 int parse_obj_file(char *filename, obj_data *data) {
   if (filename == NULL || data == NULL) {
     return ERROR;
