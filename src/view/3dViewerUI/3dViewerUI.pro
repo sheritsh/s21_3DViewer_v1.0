@@ -2,6 +2,8 @@ QT       += core gui opengl openglwidgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
+include(3rdparty/qtgifimage/src/gifimage/qtgifimage.pri)
+
 CONFIG += c++17
 
 # You can make your code fail to compile if it uses deprecated APIs.
@@ -24,6 +26,8 @@ HEADERS += \
 
 FORMS += \
     mainwindow.ui
+
+ICON = assets/AppIcon.icns
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

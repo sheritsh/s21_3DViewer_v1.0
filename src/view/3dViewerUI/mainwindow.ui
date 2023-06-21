@@ -63,7 +63,9 @@ background-color: rgb(52, 57, 66);
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: black;
+      <string notr="true">GlWidget {
+background-color: black;
+}
 </string>
      </property>
     </widget>
@@ -124,6 +126,7 @@ background-color: rgb(52, 57, 66);
        <string notr="true">background-color: rgba(0, 0, 0, 0);
 font-size: 32px;
 color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:26, stop:0.9 rgba(95, 182, 255, 255), stop:1 rgba(255, 255, 255, 255));
+
 
 </string>
       </property>
@@ -218,10 +221,13 @@ font-weight: 500;
 }
 
 QPushButton:hover {
-	background-color: rgb(252, 183, 64);
+	background-color: rgb(255, 198, 68);
 }
 
 QPushButton:pressed {
+	margin-top: 5px;
+	margin-right: 5px;
+	margin-left: 5px;
 	background-color: rgb(214, 249, 86);
 }
 
@@ -615,6 +621,15 @@ border-radius: 15px;
 QLabel {
 margin-top: 0;
 border: none;
+}
+
+QPushButton {
+	background-color: rgba(255, 255, 255, 0);
+}
+
+QPushButton:pressed {
+padding-top: 3px;
+padding-right: 3px;
 }</string>
        </property>
        <property name="frameShape">
@@ -658,7 +673,7 @@ border: none;
          <enum>Qt::Horizontal</enum>
         </property>
        </widget>
-       <widget class="QLabel" name="out_ico">
+       <widget class="QPushButton" name="out_btn">
         <property name="geometry">
          <rect>
           <x>10</x>
@@ -668,13 +683,15 @@ border: none;
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">image: url(:/res/assets/img/zoom_out.svg);</string>
+         <string notr="true">QPushButton {
+image: url(:/res/assets/img/zoom_out.svg);
+}</string>
         </property>
         <property name="text">
          <string/>
         </property>
        </widget>
-       <widget class="QLabel" name="in_ico">
+       <widget class="QPushButton" name="in_btn">
         <property name="geometry">
          <rect>
           <x>260</x>
@@ -684,7 +701,10 @@ border: none;
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">image: url(:/res/assets/img/zoom_in.svg);</string>
+         <string notr="true">QPushButton {
+image: url(:/res/assets/img/zoom_in.svg);
+}
+</string>
         </property>
         <property name="text">
          <string/>
@@ -1327,8 +1347,14 @@ font-weight: bold;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">image: none;
-</string>
+      <string notr="true">QFrame {
+image: none;
+}
+
+QPushButton:pressed {
+padding-top: 5px;
+padding-right: 5px;
+}</string>
      </property>
      <property name="frameShape">
       <enum>QFrame::StyledPanel</enum>
@@ -1401,7 +1427,15 @@ image: url(:/res/assets/img/bottom_line.png);</string>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">image: none;</string>
+       <string notr="true">QFrame {
+image: none;
+}
+
+QPushButton:pressed {
+padding-top: 4px;
+padding-right: 2px;
+padding-left: 2px;
+}</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
@@ -1409,33 +1443,42 @@ image: url(:/res/assets/img/bottom_line.png);</string>
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <widget class="QLabel" name="snap">
+      <widget class="QPushButton" name="snap_btn">
        <property name="geometry">
         <rect>
-         <x>20</x>
+         <x>35</x>
          <y>10</y>
-         <width>71</width>
+         <width>41</width>
          <height>41</height>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">image: url(:/res/assets/img/photo_ico.svg);</string>
+        <string notr="true">QPushButton {
+	background-color: rgba(255, 255, 255, 0);
+	image: url(:/res/assets/img/photo_ico.svg);
+}</string>
        </property>
        <property name="text">
         <string/>
        </property>
       </widget>
-      <widget class="QLabel" name="make_gif">
+      <widget class="QPushButton" name="gif_btn">
        <property name="geometry">
         <rect>
-         <x>20</x>
+         <x>35</x>
          <y>50</y>
-         <width>71</width>
+         <width>41</width>
          <height>41</height>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">image: url(:/res/assets/img/gif_ico.svg);</string>
+        <string notr="true">QPushButton {
+	color: red;
+	font-size: 21px;
+	font-weight: bold;
+	background-color: rgba(255, 255, 255, 0);
+	image: url(:/res/assets/img/gif_ico.svg);
+}</string>
        </property>
        <property name="text">
         <string/>

@@ -10,7 +10,7 @@
 #include <QWidget>
 #include <iostream>
 #include <QMessageBox>
-#include <mainwindow.h>
+#include <QWheelEvent>
 
 extern "C" {
 #include "../../modules/model_loading.h"
@@ -22,8 +22,10 @@ class GlWidget : public QOpenGLWidget, protected QOpenGLFunctions
 //    Q_OBJECT
 
 public:
+    explicit GlWidget(QWidget *parent = Q_NULLPTR);
+
     /* 3D MODEL DATA START */
-    double scale = 50;
+    double scale_val = 50;
     double rotate_x;
     double rotate_y;
     double rotate_z;
@@ -41,26 +43,31 @@ public:
     /* 3D MODEL DATA END  */
 
 
-    // 3D OBJ
+    // 3D OBJ DATA
     char *filename;
-    explicit GlWidget(QWidget *parent = Q_NULLPTR);
     obj_data data = {0, NULL, 0, NULL};
+
+    // OPENGL
     void initializeGL() override;
-    void resizeGL(int w, int h) override;
     void paintGL() override;
+
     void parse_obj();
+
     GLfloat normalize_coef;
 
-private:
-    void set_normalize_coef();
+    // MouseMoveControl
     void mousePressEvent(QMouseEvent *event) override;
     void mouseMoveEvent(QMouseEvent *event) override;
+    void wheelEvent(QWheelEvent *event) override;
+
+private:
+    ~GlWidget() override;
+    QPoint cur_pos;
+    QPoint new_pos;
+    void set_normalize_coef();
     void render_ui_stats();
     void build_lines();
     void build_points();
-
-
-
 
 signals:
 };

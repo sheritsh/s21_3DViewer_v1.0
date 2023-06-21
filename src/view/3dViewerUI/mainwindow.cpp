@@ -1,24 +1,26 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <QDebug>
-#include <QMessageBox>
-#include <QColorDialog>
+
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    ui->obj_info->hide();
     set_mainwindow_attributes();
     set_fonts();
     bind_slots();
-    assign_values();
-
+    settings = new QSettings("21school", "3D_Viewer", this);
+    load_settings();
 }
 
 MainWindow::~MainWindow()
 {
+    save_settings();
     data_destructor(&ui->OpenGlWidget->data);
+    delete settings;
     delete ui;
 }
 
@@ -27,6 +29,7 @@ void MainWindow::set_mainwindow_attributes()
     this->setWindowFlags(Qt::WindowType::FramelessWindowHint);
     this->setAttribute(Qt::WA_TranslucentBackground);
     this->setAutoFillBackground(true);
+    timer = new QTimer(0);
 }
 
 void MainWindow::set_fonts()
@@ -55,12 +58,87 @@ void MainWindow::bind_slots()
     connect(ui->closeBtn, SIGNAL(clicked()), this, SLOT(close()));
     connect(ui->minimizeBtn, SIGNAL(clicked()), this,
             SLOT(showMinimized()));
+    connect(timer, SIGNAL(timeout()), this, SLOT(make_gif()));
 }
 
-void MainWindow::assign_values()
+
+void MainWindow::restore_default_values()
+{
+    ui->scale_val->setValue(50);
+    ui->rotate_x_val->setValue(0);
+    ui->rotate_y_val->setValue(0);
+    ui->rotate_z_val->setValue(0);
+    ui->translate_x_val->setValue(0);
+    ui->translate_y_val->setValue(0);
+    ui->translate_z_val->setValue(0);
+}
+
+void MainWindow::save_settings()
+{
+    settings->setValue("are_settings", 1);
+    settings->setValue("projection_type", ui->OpenGlWidget->projection_type);
+    settings->setValue("v_display_method", ui->OpenGlWidget->v_display_method);
+    settings->setValue("vertices_size", ui->OpenGlWidget->vertices_size);
+    settings->setValue("v_red", ui->OpenGlWidget->v_red);
+    settings->setValue("v_green", ui->OpenGlWidget->v_green);
+    settings->setValue("v_blue", ui->OpenGlWidget->v_blue);
+    settings->setValue("edges_type", ui->OpenGlWidget->edges_type);
+    settings->setValue("edges_thickness", ui->OpenGlWidget->edges_thickness);
+    settings->setValue("e_red", ui->OpenGlWidget->e_red);
+    settings->setValue("e_green", ui->OpenGlWidget->e_green);
+    settings->setValue("e_blue", ui->OpenGlWidget->e_blue);
+    settings->setValue("bg_red", ui->OpenGlWidget->bg_red);
+    settings->setValue("bg_green", ui->OpenGlWidget->bg_green);
+    settings->setValue("bg_blue", ui->OpenGlWidget->bg_blue);
+}
+
+void MainWindow::load_settings()
 {
 
+    if (settings->value("are_settings").toInt()) {
+        char rgba_color[40];
+        ui->projection_types->setCurrentIndex(settings->value("projection_type").toInt());
+        int v_mode = settings->value("v_display_method").toInt();
+        if (v_mode == 0) {
+            ui->vert_none_val->setChecked(true);
+            ui->OpenGlWidget->v_display_method = 0;
+        } else if (v_mode == 1) {
+            ui->vert_circle_val->setChecked(true);
+            ui->OpenGlWidget->v_display_method = 1;
+        } else if (v_mode == 2) {
+            ui->vert_square_val->setChecked(true);
+            ui->OpenGlWidget->v_display_method = 2;
+        }
+        ui->vert_size_val->setValue(settings->value("vertices_size").toDouble());
+        ui->OpenGlWidget->v_red = settings->value("v_red").toDouble();
+        ui->OpenGlWidget->v_green = settings->value("v_green").toDouble();
+        ui->OpenGlWidget->v_blue = settings->value("v_blue").toDouble();
+        sprintf(rgba_color, "background-color: rgb(%d,%d,%d)", (int)(ui->OpenGlWidget->v_red*255), (int)(ui->OpenGlWidget->v_green*255), (int)(ui->OpenGlWidget->v_blue*255));
+        ui->vert_color_val->setStyleSheet(rgba_color);
+        int edges_mode = settings->value("edges_type").toInt();
+        if (edges_mode == 0) {
+            ui->edge_solid_val->setChecked(true);
+            ui->OpenGlWidget->edges_type = 0;
+        } else if (edges_mode == 1) {
+            ui->edge_dashed_val->setChecked(true);
+            ui->OpenGlWidget->edges_type = 1;
+        }
+        ui->edge_thic_val->setValue(settings->value("edges_thickness").toInt() * 10);
+        ui->OpenGlWidget->e_red = settings->value("e_red").toDouble();
+        ui->OpenGlWidget->e_green = settings->value("e_green").toDouble();
+        ui->OpenGlWidget->e_blue = settings->value("e_blue").toDouble();
+        sprintf(rgba_color, "background-color: rgb(%d,%d,%d)", (int)(ui->OpenGlWidget->e_red*255), (int)(ui->OpenGlWidget->e_green*255), (int)(ui->OpenGlWidget->e_blue*255));
+        ui->edge_color_val->setStyleSheet(rgba_color);
+        ui->OpenGlWidget->bg_red = settings->value("bg_red").toDouble();
+        ui->OpenGlWidget->bg_green = settings->value("bg_green").toDouble();
+        ui->OpenGlWidget->bg_blue = settings->value("bg_blue").toDouble();
+        sprintf(rgba_color, "background-color: rgb(%d,%d,%d)", (int)(ui->OpenGlWidget->bg_red*255), (int)(ui->OpenGlWidget->bg_green*255), (int)(ui->OpenGlWidget->bg_blue*255));
+        ui->background_color_val->setStyleSheet(rgba_color);
+
+    }
+
 }
+
 
 void MainWindow::on_openObjBtn_clicked()
 {
@@ -70,12 +148,26 @@ void MainWindow::on_openObjBtn_clicked()
 
 void MainWindow::on_renderBtn_clicked()
 {
+    restore_default_values();
     std::string std_filename = ui->pathObj->text().toStdString();
     ui->OpenGlWidget->filename = (char *)std_filename.c_str();
     ui->OpenGlWidget->parse_obj();
-    ui->filename_val->setText("dancing Zalupa 3d model tancuet za 300 bucks");
+    if (ui->OpenGlWidget->filename[0] != '\0') {
+        isObjFile = 1;
+        char *start = strrchr((char *)std_filename.c_str(), '/') + 1;
+        char *ext = strrchr((char *)std_filename.c_str(), '.');
+        *ext = '\0';
+        ui->filename_val->setText(start);
+        ui->obj_info->show();
+    } else {
+        isObjFile = 0;
+        ui->obj_info->hide();
+    }
+
+
     ui->vert_numb_val->setText(QString::number(ui->OpenGlWidget->data.vertices_count));
     ui->edges_numb_val->setText(QString::number(ui->OpenGlWidget->data.vertex_indices_count));
+
 }
 
 void MainWindow::mouseMoveEvent(QMouseEvent *event) {
@@ -83,6 +175,7 @@ void MainWindow::mouseMoveEvent(QMouseEvent *event) {
     move(x() + new_pos.x(), y() + new_pos.y());
     cur_pos = event->globalPosition().toPoint();
 }
+
 
 void MainWindow::mousePressEvent(QMouseEvent *event) {
     cur_pos = event->globalPosition().toPoint();
@@ -196,9 +289,10 @@ void MainWindow::on_background_color_val_clicked()
 
 void MainWindow::on_scale_val_valueChanged(int value)
 {
-    double val = (double)value / ui->OpenGlWidget->scale;
+
+    double val = (double)value / ui->OpenGlWidget->scale_val;
     scale(&ui->OpenGlWidget->data, val);
-    ui->OpenGlWidget->scale = value;
+    ui->OpenGlWidget->scale_val = value;
     ui->OpenGlWidget->update();
 }
 
@@ -250,3 +344,88 @@ void MainWindow::on_translate_z_val_valueChanged(int value)
     ui->OpenGlWidget->update();
 }
 
+
+void MainWindow::on_out_btn_clicked()
+{
+    ui->scale_val->setValue(ui->scale_val->value() - 10);
+}
+
+
+void MainWindow::on_in_btn_clicked()
+{
+    ui->scale_val->setValue(ui->scale_val->value() + 10);
+}
+
+
+void MainWindow::on_snap_btn_clicked()
+{
+    if (isObjFile) {
+        QFileDialog dialogConnectImage(this);
+        QDateTime current_date = QDateTime::currentDateTime();
+        QString formattedTime = current_date.toString("yyyy-MM-dd hh.mm.ss");
+        QString name_pattern = "Screen Shot " + formattedTime + ".jpeg";
+        QString image_name = dialogConnectImage.getSaveFileName(
+            this, tr("Save a screenshot"), name_pattern, tr("image (*.jpeg *.bmp)"));
+        if (image_name.length() >= 1) {
+            QImage img = ui->OpenGlWidget->grabFramebuffer();
+            img.save(image_name);
+            QMessageBox messageBoxImage;
+            messageBoxImage.information(0, "", "Screenshot saved successfully");
+        }
+    } else {
+        QMessageBox warning = QMessageBox();
+        warning.setWindowTitle("Error");
+        warning.setText("Please open .obj file to take a screenshot");
+        warning.setIcon(QMessageBox::Warning);
+        warning.exec();
+    }
+
+}
+
+
+void MainWindow::on_gif_btn_clicked()
+{
+if (isObjFile) {
+        QDateTime current_date = QDateTime::currentDateTime();
+        QString formattedTime = current_date.toString("yyyy-MM-dd hh.mm.ss");
+        QString name_pattern = "Screen Cast " + formattedTime + ".gif";
+        gif_name = QFileDialog::getSaveFileName(this, tr("Save a gif animation"), name_pattern,
+                                                   tr("gif (*.gif)"));
+        if (gif_name != "") {
+            ui->gif_btn->setDisabled(true);
+            gif_frame = new QGifImage;
+            gif_frame->setDefaultDelay(10);
+            timer->setInterval(100);
+            timer->start();
+        }
+} else {
+    QMessageBox warning = QMessageBox();
+    warning.setWindowTitle("Error");
+    warning.setText("Please open .obj file to take a screencast");
+    warning.setIcon(QMessageBox::Warning);
+    warning.exec();
+}
+
+}
+
+void MainWindow::make_gif()
+{
+    QImage image = ui->OpenGlWidget->grabFramebuffer();
+    QSize image_size(640, 480);
+    QImage scaled_image = image.scaled(image_size);
+    gif_frame->addFrame(scaled_image);
+    if (frames_counter == 50) {
+        timer->stop();
+        gif_frame->save(gif_name);
+        frames_counter = 0;
+        QMessageBox messageBoxGif;
+        messageBoxGif.information(0, "", "Gif animation saved successfully");
+        delete gif_frame;
+        ui->gif_btn->setText("");
+        ui->gif_btn->setEnabled(true);
+    }
+    frames_counter++;
+    if (!ui->gif_btn->isEnabled()) {
+        ui->gif_btn->setText(QString::number(frames_counter / 10) + "s");
+    }
+}

@@ -22,5 +22,7 @@
         <file>assets/fonts/TechnoCharmDemoVersionRegular-ALaZm.otf</file>
         <file>assets/img/gif_ico.svg</file>
         <file>assets/img/photo_ico.svg</file>
+        <file>assets/img/icon.ico</file>
+        <file>assets/AppIcon.icns</file>
     </qresource>
 </RCC>

@@ -2,16 +2,16 @@
 
 GlWidget::GlWidget(QWidget *parent) : QOpenGLWidget{parent} {}
 
+GlWidget::~GlWidget() {
+    data_destructor(&data);
+}
+
 void GlWidget::initializeGL()
 {
     initializeOpenGLFunctions();
     glEnable(GL_DEPTH_TEST); // depth buffer for z coordinate
 }
 
-void GlWidget::resizeGL(int w, int h)
-{
-//    glViewport(0, 0, w, h); // set the viewport, if the size is fixed could be skipped
-}
 
 void GlWidget::paintGL()
 {
@@ -22,9 +22,11 @@ void GlWidget::paintGL()
     glLoadIdentity();
     if (this->projection_type == 0) {
         glFrustum(-1 * normalize_coef, 1 * normalize_coef, -1 * normalize_coef, 1 * normalize_coef, 120 * normalize_coef , 1000 * normalize_coef);
-        glTranslatef(0, 0, -130 * normalize_coef);
+        glTranslatef(0, -normalize_coef/2 + normalize_coef * 0.3, -130 * normalize_coef);
+        glRotatef(30, 1, 0, 0);
     } else {
         glOrtho(-1 * normalize_coef, 1 * normalize_coef, -1 * normalize_coef, 1 * normalize_coef, -1 * normalize_coef, 1000 * normalize_coef);
+        glTranslatef(0, -normalize_coef/2, 0);
     }
     glEnableClientState(GL_VERTEX_ARRAY); // enable open gl state
     if (this->v_display_method != 0) {
@@ -93,10 +95,39 @@ void GlWidget::build_points()
 }
 
 void GlWidget::mouseMoveEvent(QMouseEvent *event) {
+    new_pos = QPoint(event->globalPosition().toPoint() - cur_pos);
+
+    if (event->buttons() & Qt::LeftButton)
+    {
+        move_X(&this->data, new_pos.x() * 0.005);
+        move_Y(&this->data, -new_pos.y() * 0.005);
+        update();
+    }
+    else if (event->buttons() & Qt::RightButton)
+    {
+        rotate_X(&this->data, -new_pos.y() * 0.005);
+        rotate_Y(&this->data, new_pos.x() * 0.005);
+        update();
+    }
+
+}
+
+void GlWidget::wheelEvent(QWheelEvent *event)
+{
+    QPoint numDegrees = event->angleDelta() / 120;
+    double step = normalize_coef / 10;
+    double scale_tmp = scale_val;
+    if ((int)(scale_val + numDegrees.y() * step) > 0) {
+        scale_val += numDegrees.y() * step;
+        scale(&this->data, scale_val / scale_tmp);
+        update();
+    }
+
 
 }
 
 void GlWidget::mousePressEvent(QMouseEvent *event) {
+     cur_pos = event->globalPosition().toPoint();
 
 }
 
