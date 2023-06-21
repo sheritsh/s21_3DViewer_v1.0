@@ -211,9 +211,19 @@ color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:26, stop:0.9 rgba(95
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">border-radius: 22px;
+        <string notr="true">QPushButton {
+border-radius: 22px;
 background-color: rgb(241, 175, 60);
 font-weight: 500;
+}
+
+QPushButton:hover {
+	background-color: rgb(252, 183, 64);
+}
+
+QPushButton:pressed {
+	background-color: rgb(214, 249, 86);
+}
 
 </string>
        </property>
@@ -344,6 +354,15 @@ border: none;
            </item>
            <item>
             <widget class="QSlider" name="translate_x_val">
+             <property name="minimum">
+              <number>-100</number>
+             </property>
+             <property name="maximum">
+              <number>100</number>
+             </property>
+             <property name="value">
+              <number>0</number>
+             </property>
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
              </property>
@@ -368,6 +387,15 @@ border: none;
            </item>
            <item>
             <widget class="QSlider" name="translate_y_val">
+             <property name="minimum">
+              <number>-100</number>
+             </property>
+             <property name="maximum">
+              <number>100</number>
+             </property>
+             <property name="value">
+              <number>0</number>
+             </property>
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
              </property>
@@ -392,6 +420,15 @@ border: none;
            </item>
            <item>
             <widget class="QSlider" name="translate_z_val">
+             <property name="minimum">
+              <number>-100</number>
+             </property>
+             <property name="maximum">
+              <number>100</number>
+             </property>
+             <property name="value">
+              <number>0</number>
+             </property>
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
              </property>
@@ -473,6 +510,15 @@ border: none;
            </item>
            <item>
             <widget class="QSlider" name="rotate_x_val">
+             <property name="minimum">
+              <number>-360</number>
+             </property>
+             <property name="maximum">
+              <number>360</number>
+             </property>
+             <property name="singleStep">
+              <number>1</number>
+             </property>
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
              </property>
@@ -497,6 +543,15 @@ border: none;
            </item>
            <item>
             <widget class="QSlider" name="rotate_y_val">
+             <property name="minimum">
+              <number>-360</number>
+             </property>
+             <property name="maximum">
+              <number>360</number>
+             </property>
+             <property name="singleStep">
+              <number>0</number>
+             </property>
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
              </property>
@@ -521,6 +576,15 @@ border: none;
            </item>
            <item>
             <widget class="QSlider" name="rotate_z_val">
+             <property name="minimum">
+              <number>-360</number>
+             </property>
+             <property name="maximum">
+              <number>360</number>
+             </property>
+             <property name="singleStep">
+              <number>0</number>
+             </property>
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
              </property>
@@ -581,6 +645,15 @@ border: none;
           <height>25</height>
          </rect>
         </property>
+        <property name="minimum">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <number>200</number>
+        </property>
+        <property name="value">
+         <number>50</number>
+        </property>
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
@@ -635,7 +708,7 @@ border: none;
        <string notr="true"/>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="vert_tab">
        <property name="styleSheet">
@@ -705,23 +778,7 @@ border: none;
          <set>Qt::AlignCenter</set>
         </property>
        </widget>
-       <widget class="QLabel" name="vert_color_val">
-        <property name="geometry">
-         <rect>
-          <x>240</x>
-          <y>60</y>
-          <width>30</width>
-          <height>30</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(255, 255, 255);</string>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-       <widget class="QWidget" name="">
+       <widget class="QWidget" name="layoutWidget">
         <property name="geometry">
          <rect>
           <x>50</x>
@@ -759,6 +816,24 @@ border: none;
           </widget>
          </item>
         </layout>
+       </widget>
+       <widget class="QPushButton" name="vert_color_val">
+        <property name="geometry">
+         <rect>
+          <x>240</x>
+          <y>60</y>
+          <width>32</width>
+          <height>32</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">border-radius: 0;
+border: 1px solid black;
+background-color: rgb(255, 255, 255);</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
        </widget>
       </widget>
       <widget class="QWidget" name="edge_tab">
@@ -825,6 +900,12 @@ border: none;
           <height>31</height>
          </rect>
         </property>
+        <property name="minimum">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <number>100</number>
+        </property>
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
@@ -861,17 +942,19 @@ border: none;
          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
-       <widget class="QLabel" name="edge_color_val">
+       <widget class="QPushButton" name="edge_color_val">
         <property name="geometry">
          <rect>
           <x>240</x>
           <y>60</y>
-          <width>30</width>
-          <height>30</height>
+          <width>32</width>
+          <height>32</height>
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(255, 255, 255);</string>
+         <string notr="true">border-radius: 0;
+border: 1px solid black;
+background-color: rgb(255, 255, 255);</string>
         </property>
         <property name="text">
          <string/>
@@ -885,22 +968,6 @@ border: none;
        <attribute name="title">
         <string>Background</string>
        </attribute>
-       <widget class="QLabel" name="back_tab_color_val">
-        <property name="geometry">
-         <rect>
-          <x>190</x>
-          <y>30</y>
-          <width>30</width>
-          <height>30</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(0, 0, 0);</string>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
        <widget class="QLabel" name="back_tab_color_title">
         <property name="geometry">
          <rect>
@@ -915,6 +982,24 @@ border: none;
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="background_color_val">
+        <property name="geometry">
+         <rect>
+          <x>190</x>
+          <y>30</y>
+          <width>32</width>
+          <height>32</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">border-radius: 0;
+border: 1px solid black;
+background-color: rgb(0, 0, 0);</string>
+        </property>
+        <property name="text">
+         <string/>
         </property>
        </widget>
       </widget>
@@ -1043,20 +1128,28 @@ color: rgb(255, 255, 255);
          <string/>
         </property>
        </widget>
-       <widget class="QLabel" name="filename_val">
+       <widget class="QLineEdit" name="filename_val">
         <property name="geometry">
          <rect>
-          <x>70</x>
-          <y>40</y>
-          <width>161</width>
-          <height>51</height>
+          <x>62</x>
+          <y>43</y>
+          <width>171</width>
+          <height>41</height>
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">font-weight: bold;</string>
+         <string notr="true">font-size: 24px;
+font-weight: bold;
+color: rgba(91, 181, 255, 0.9);</string>
         </property>
         <property name="text">
-         <string>SAMPLE FILE OBJECT</string>
+         <string>obj name</string>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+        <property name="cursorMoveStyle">
+         <enum>Qt::LogicalMoveStyle</enum>
         </property>
        </widget>
       </widget>
@@ -1107,9 +1200,9 @@ color: rgb(255, 255, 255);
        <widget class="QLabel" name="vert_numb_val">
         <property name="geometry">
          <rect>
-          <x>60</x>
+          <x>0</x>
           <y>40</y>
-          <width>41</width>
+          <width>101</width>
           <height>51</height>
          </rect>
         </property>
@@ -1118,7 +1211,7 @@ color: rgb(255, 255, 255);
 font-weight: bold;</string>
         </property>
         <property name="text">
-         <string>10</string>
+         <string>0</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1172,9 +1265,9 @@ font-weight: bold;</string>
        <widget class="QLabel" name="edges_numb_val">
         <property name="geometry">
          <rect>
-          <x>50</x>
+          <x>-10</x>
           <y>40</y>
-          <width>41</width>
+          <width>101</width>
           <height>51</height>
          </rect>
         </property>
@@ -1183,7 +1276,7 @@ font-weight: bold;</string>
 font-weight: bold;</string>
         </property>
         <property name="text">
-         <string>30</string>
+         <string>0</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>

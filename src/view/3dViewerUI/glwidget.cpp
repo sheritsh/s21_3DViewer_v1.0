@@ -10,29 +10,36 @@ void GlWidget::initializeGL()
 
 void GlWidget::resizeGL(int w, int h)
 {
-    glViewport(0, 0, w, h); // set the viewport, if the size is fixed could be skipped
+//    glViewport(0, 0, w, h); // set the viewport, if the size is fixed could be skipped
 }
 
 void GlWidget::paintGL()
 {
-    glClearColor(0, 0, 0, 1);
+    glClearColor(bg_red, bg_green, bg_blue, 1);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glVertexPointer(3, GL_DOUBLE, 0, data.vertices_arr); // number of coordinates per vertex, type of data in array, distance between vertices in array, pointer to array
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glOrtho(-1 * normalize_coef, 1 * normalize_coef, -1 * normalize_coef, 1 * normalize_coef, -1 * normalize_coef, 1000 * normalize_coef);
+    if (this->projection_type == 0) {
+        glFrustum(-1 * normalize_coef, 1 * normalize_coef, -1 * normalize_coef, 1 * normalize_coef, 120 * normalize_coef , 1000 * normalize_coef);
+        glTranslatef(0, 0, -130 * normalize_coef);
+    } else {
+        glOrtho(-1 * normalize_coef, 1 * normalize_coef, -1 * normalize_coef, 1 * normalize_coef, -1 * normalize_coef, 1000 * normalize_coef);
+    }
     glEnableClientState(GL_VERTEX_ARRAY); // enable open gl state
-    glDrawElements(GL_LINES, data.vertex_indices_count * 2, GL_UNSIGNED_INT, data.vertex_indices_arr); // multiply by two because we draw lines that close
+    if (this->v_display_method != 0) {
+        build_points();
+    }
+    build_lines();
     glDisableClientState(GL_VERTEX_ARRAY);
 }
 
 void GlWidget::parse_obj()
 {
-//    char *filename = "n/Volumes/sheritsh/C8_3DViewer_v1.0-1/src/tmp/skull.obj";
+    data_destructor(&this->data);
     data = {0, NULL, 0, NULL};
     if (this->filename[0] != '\0') {
         parse_obj_file(this->filename, &this->data);
-//        vertices = data.vertices_count;
-//        edges = data.vertex_indices_count;
         set_normalize_coef();
         update();
     } else {
@@ -43,10 +50,6 @@ void GlWidget::parse_obj()
         warning.exec();
     }
 
-
-//    set_max_vert();
-
-    //    print_data(&this->data);
 }
 
 void GlWidget::set_normalize_coef()
@@ -61,12 +64,35 @@ void GlWidget::set_normalize_coef()
 
 }
 
-void GlWidget::mouseMoveEvent(QMouseEvent *event) {
 
+void GlWidget::build_lines()
+{
+    if (this->edges_type == 1) {
+        glEnable(GL_LINE_STIPPLE);
+        glLineStipple(1, 0x00FF);
+    }
+    glLineWidth(this->edges_thickness);
+    glColor3f(this->e_red, this->e_green, this->e_blue);
+    glDrawElements(GL_LINES, data.vertex_indices_count * 2, GL_UNSIGNED_INT, data.vertex_indices_arr); // multiply by two because we draw lines that close
+    if (this->edges_type == 1) {
+        glDisable(GL_LINE_STIPPLE);
+    }
 }
 
-void GlWidget::render_ui_stats()
+void GlWidget::build_points()
 {
+    if (this->v_display_method == 1) {
+        glEnable(GL_POINT_SMOOTH);
+    }
+    glPointSize(this->vertices_size);
+    glColor3f(this->v_red, this->v_green, this->v_blue);
+    glDrawArrays(GL_POINTS, 0, data.vertices_count);
+    if (this->v_display_method == 1) {
+        glDisable(GL_POINT_SMOOTH);
+    }
+}
+
+void GlWidget::mouseMoveEvent(QMouseEvent *event) {
 
 }
 
