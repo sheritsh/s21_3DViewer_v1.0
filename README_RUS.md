@@ -4,7 +4,7 @@
 
 ## Участники проекта
 
-Проект разработан пирами [//sheritsh](https://github.com/sheritsh) && [//klotzgal](https://github.com/klotzgal).
+Проект разработан пирами [// sheritsh](https://github.com/sheritsh) && [// klotzgal](https://github.com/klotzgal).
 
 ## Содержание
 
