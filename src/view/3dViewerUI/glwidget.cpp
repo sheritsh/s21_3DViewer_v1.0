@@ -20,9 +20,8 @@ void GlWidget::paintGL() {
   glLoadIdentity();
   if (this->projection_type == 0) {
     glFrustum(-1 * normalize_coef, 1 * normalize_coef, -1 * normalize_coef,
-              1 * normalize_coef, 120 * normalize_coef, 1000 * normalize_coef);
-    glTranslatef(0, -normalize_coef / 2 + normalize_coef * 0.3,
-                 -130 * normalize_coef);
+              1 * normalize_coef, normalize_coef, 1000 * normalize_coef);
+    glTranslatef(0, 0, -2 * normalize_coef);
     glRotatef(30, 1, 0, 0);
   } else {
     glOrtho(-1 * normalize_coef, 1 * normalize_coef, -1 * normalize_coef,

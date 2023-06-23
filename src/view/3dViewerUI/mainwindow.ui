@@ -1486,6 +1486,29 @@ padding-left: 2px;
       </widget>
      </widget>
     </widget>
+    <widget class="QFrame" name="bg_mock">
+     <property name="geometry">
+      <rect>
+       <x>-1</x>
+       <y>90</y>
+       <width>931</width>
+       <height>523</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QFrame {
+border-radius: 0;
+background-color: rgb(0, 0, 0);
+}</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+    </widget>
+    <zorder>bg_mock</zorder>
     <zorder>OpenGlWidget</zorder>
     <zorder>blueline</zorder>
     <zorder>title</zorder>

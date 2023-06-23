@@ -22,7 +22,7 @@ all: clean install
 install:
 	@echo "Start installation"
 	@mkdir -p ../build
-	@cd view && cd 3dViewerUI && qmake && make && make clean && rm -rf Makefile && mv 3dViewerUI.app ../../../build/$(TARGET).app
+	@cd view && cd 3dViewerUI && qmake && make &> /dev/null && make clean &> /dev/null && rm -rf Makefile && mv 3dViewerUI.app ../../../build/$(TARGET).app
 	@cp -R ../build/$(TARGET).app ~/Desktop/$(TARGET).app
 	@echo "┏=========================================┓"
 	@echo "┃    The installation was successful.     ┃"
