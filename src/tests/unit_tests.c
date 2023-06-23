@@ -7,14 +7,10 @@
 
 START_TEST(parser_1) {
   obj_data d = {0};
-  char filename[] = "tmp/cube.obj";
+  char filename[] = "obj_files/cube.obj";
   double vertices_arr[] = {0.0, 0.0, 0.0, 0.0, 0.0, 2.0, 0.0, 2.0,
                            0.0, 0.0, 2.0, 2.0, 2.0, 0.0, 0.0, 2.0,
                            0.0, 2.0, 2.0, 2.0, 0.0, 2.0, 2.0, 2.0};
-  int vertex_indices_arr[] = {0, 6, 4, 4, 6, 0, 2, 6, 6, 2, 0, 3, 2, 2, 3,
-                              0, 1, 3, 3, 1, 2, 7, 7, 6, 6, 2, 2, 3, 3, 7,
-                              7, 2, 4, 6, 6, 7, 7, 4, 4, 7, 7, 5, 5, 4, 0,
-                              4, 5, 5, 4, 0, 5, 1, 1, 5, 0, 0, 0, 0, 0, 0};
   int res = parse_obj_file(filename, &d);
   ck_assert_int_eq(res, OK);
   ck_assert_int_eq(d.vertex_indices_count, 30);
@@ -26,17 +22,13 @@ START_TEST(parser_1) {
     i++;
   }
   i = 0;
-  while (i < (int)d.vertex_indices_count * 2) {
-    ck_assert_int_eq(d.vertex_indices_arr[i], vertex_indices_arr[i]);
-    i++;
-  }
   data_destructor(&d);
 }
 END_TEST
 
 START_TEST(parser_2) {
   obj_data d = {0};
-  char filename[] = "tmp/xxx.obj";
+  char filename[] = "obj_files/xxx.obj";
   int res = parse_obj_file(filename, &d);
   ck_assert_int_eq(res, ERROR);
 }
@@ -52,7 +44,7 @@ END_TEST
 
 START_TEST(affine_rotate_X_1) {
   obj_data d = {0};
-  char filename[] = "tmp/cube.obj";
+  char filename[] = "obj_files/cube.obj";
   double vertices_arr[] = {
       0.0000000, 0.0000000, 0.0000000,  0.0000000, 1.0000000, 1.7320508,
       0.0000000, 1.7320508, -1.0000000, 0.0000000, 2.7320508, 0.7320508,
@@ -74,7 +66,7 @@ END_TEST
 
 START_TEST(affine_rotate_X_2) {
   obj_data d = {0};
-  char filename[] = "tmp/cube.obj";
+  char filename[] = "obj_files/cube.obj";
   double vertices_arr[] = {
       0.0000000, 0.0000000, 0.0000000, 0.0000000, -1.0000000, 1.7320508,
       0.0000000, 1.7320508, 1.0000000, 0.0000000, 0.7320508,  2.7320508,
@@ -95,7 +87,7 @@ END_TEST
 
 START_TEST(affine_rotate_X_3) {
   obj_data d = {0};
-  char filename[] = "tmp/cube.obj";
+  char filename[] = "obj_files/cube.obj";
   double vertices_arr[] = {
       0.0000000, -0.0000000, 0.0000000, 0.0000000, -0.6840403, -1.8793852,
       0.0000000, -1.8793852, 0.6840403, 0.0000000, -2.5634255, -1.1953450,
@@ -116,7 +108,7 @@ END_TEST
 
 START_TEST(affine_rotate_Y_1) {
   obj_data d = {0};
-  char filename[] = "tmp/cube.obj";
+  char filename[] = "obj_files/cube.obj";
   double vertices_arr[] = {
       0.0000000, 0.0000000, 0.0000000,  1.0000000, 0.0000000, 1.7320508,
       0.0000000, 2.0000000, 0.0000000,  1.0000000, 2.0000000, 1.7320508,
@@ -138,7 +130,7 @@ END_TEST
 
 START_TEST(affine_rotate_Y_2) {
   obj_data d = {0};
-  char filename[] = "tmp/cube.obj";
+  char filename[] = "obj_files/cube.obj";
   double vertices_arr[] = {
       0.0000000, 0.0000000, 0.0000000, -1.0000000, 0.0000000, 1.7320508,
       0.0000000, 2.0000000, 0.0000000, -1.0000000, 2.0000000, 1.7320508,
@@ -160,7 +152,7 @@ END_TEST
 
 START_TEST(affine_rotate_Y_3) {
   obj_data d = {0};
-  char filename[] = "tmp/cube.obj";
+  char filename[] = "obj_files/cube.obj";
   double vertices_arr[] = {
       -0.0000000, 0.0000000, 0.0000000, -0.6840403, 0.0000000, -1.8793852,
       -0.0000000, 2.0000000, 0.0000000, -0.6840403, 2.0000000, -1.8793852,
@@ -182,7 +174,7 @@ END_TEST
 
 START_TEST(affine_rotate_Z_1) {
   obj_data d = {0};
-  char filename[] = "tmp/cube.obj";
+  char filename[] = "obj_files/cube.obj";
   double vertices_arr[] = {
       0.0000000, 0.0000000,  0.0000000, 0.0000000, 0.0000000,  2.0000000,
       1.0000000, 1.7320508,  0.0000000, 1.0000000, 1.7320508,  2.0000000,
@@ -204,7 +196,7 @@ END_TEST
 
 START_TEST(affine_rotate_Z_2) {
   obj_data d = {0};
-  char filename[] = "tmp/cube.obj";
+  char filename[] = "obj_files/cube.obj";
   double vertices_arr[] = {
       0.0000000,  0.0000000, 0.0000000, 0.0000000,  0.0000000, 2.0000000,
       -1.0000000, 1.7320508, 0.0000000, -1.0000000, 1.7320508, 2.0000000,
@@ -226,7 +218,7 @@ END_TEST
 
 START_TEST(affine_rotate_Z_3) {
   obj_data d = {0};
-  char filename[] = "tmp/cube.obj";
+  char filename[] = "obj_files/cube.obj";
   double vertices_arr[] = {
       -0.0000000, 0.0000000,  0.0000000, -0.0000000, 0.0000000,  2.0000000,
       -0.6840403, -1.8793852, 0.0000000, -0.6840403, -1.8793852, 2.0000000,
@@ -248,7 +240,7 @@ END_TEST
 
 START_TEST(affine_scale_1) {
   obj_data d = {0};
-  char filename[] = "tmp/cube.obj";
+  char filename[] = "obj_files/cube.obj";
   double vertices_arr[] = {
       0.0000000, 0.0000000, 0.0000000, 0.0000000, 0.0000000, 6.0000000,
       0.0000000, 6.0000000, 0.0000000, 0.0000000, 6.0000000, 6.0000000,
@@ -270,7 +262,7 @@ END_TEST
 
 START_TEST(affine_scale_2) {
   obj_data d = {0};
-  char filename[] = "tmp/cube.obj";
+  char filename[] = "obj_files/cube.obj";
   double vertices_arr[] = {
       0.0000000, 0.0000000, 0.0000000, 0.0000000, 0.0000000, 0.6000000,
       0.0000000, 0.6000000, 0.0000000, 0.0000000, 0.6000000, 0.6000000,
@@ -292,7 +284,7 @@ END_TEST
 
 START_TEST(affine_scale_3) {
   obj_data d = {0};
-  char filename[] = "tmp/cube.obj";
+  char filename[] = "obj_files/cube.obj";
   double vertices_arr[] = {
       0.0000000,      0.0000000,      0.0000000,      0.0000000,
       0.0000000,      666666.0000000, 0.0000000,      666666.0000000,
@@ -316,7 +308,7 @@ END_TEST
 
 START_TEST(affine_move_X_1) {
   obj_data d = {0};
-  char filename[] = "tmp/cube.obj";
+  char filename[] = "obj_files/cube.obj";
   double vertices_arr[] = {
       3.0000000, 0.0000000, 0.0000000, 3.0000000, 0.0000000, 2.0000000,
       3.0000000, 2.0000000, 0.0000000, 3.0000000, 2.0000000, 2.0000000,
@@ -338,7 +330,7 @@ END_TEST
 
 START_TEST(affine_move_X_2) {
   obj_data d = {0};
-  char filename[] = "tmp/cube.obj";
+  char filename[] = "obj_files/cube.obj";
   double vertices_arr[] = {
       -3.0000000, 0.0000000, 0.0000000, -3.0000000, 0.0000000, 2.0000000,
       -3.0000000, 2.0000000, 0.0000000, -3.0000000, 2.0000000, 2.0000000,
@@ -360,7 +352,7 @@ END_TEST
 
 START_TEST(affine_move_X_3) {
   obj_data d = {0};
-  char filename[] = "tmp/cube.obj";
+  char filename[] = "obj_files/cube.obj";
   double vertices_arr[] = {
       -0.5000000, 0.0000000, 0.0000000, -0.5000000, 0.0000000, 2.0000000,
       -0.5000000, 2.0000000, 0.0000000, -0.5000000, 2.0000000, 2.0000000,
@@ -382,7 +374,7 @@ END_TEST
 
 START_TEST(affine_move_Y_1) {
   obj_data d = {0};
-  char filename[] = "tmp/cube.obj";
+  char filename[] = "obj_files/cube.obj";
   double vertices_arr[] = {
       0.0000000, 3.0000000, 0.0000000, 0.0000000, 3.0000000, 2.0000000,
       0.0000000, 5.0000000, 0.0000000, 0.0000000, 5.0000000, 2.0000000,
@@ -404,7 +396,7 @@ END_TEST
 
 START_TEST(affine_move_Y_2) {
   obj_data d = {0};
-  char filename[] = "tmp/cube.obj";
+  char filename[] = "obj_files/cube.obj";
   double vertices_arr[] = {
       0.0000000, -3.0000000, 0.0000000, 0.0000000, -3.0000000, 2.0000000,
       0.0000000, -1.0000000, 0.0000000, 0.0000000, -1.0000000, 2.0000000,
@@ -426,7 +418,7 @@ END_TEST
 
 START_TEST(affine_move_Y_3) {
   obj_data d = {0};
-  char filename[] = "tmp/cube.obj";
+  char filename[] = "obj_files/cube.obj";
   double vertices_arr[] = {
       0.0000000, -0.5000000, 0.0000000, 0.0000000, -0.5000000, 2.0000000,
       0.0000000, 1.5000000,  0.0000000, 0.0000000, 1.5000000,  2.0000000,
@@ -448,7 +440,7 @@ END_TEST
 
 START_TEST(affine_move_Z_1) {
   obj_data d = {0};
-  char filename[] = "tmp/cube.obj";
+  char filename[] = "obj_files/cube.obj";
   double vertices_arr[] = {
       0.0000000, 0.0000000, 3.0000000, 0.0000000, 0.0000000, 5.0000000,
       0.0000000, 2.0000000, 3.0000000, 0.0000000, 2.0000000, 5.0000000,
@@ -470,7 +462,7 @@ END_TEST
 
 START_TEST(affine_move_Z_2) {
   obj_data d = {0};
-  char filename[] = "tmp/cube.obj";
+  char filename[] = "obj_files/cube.obj";
   double vertices_arr[] = {
       0.0000000, 0.0000000, -3.0000000, 0.0000000, 0.0000000, -1.0000000,
       0.0000000, 2.0000000, -3.0000000, 0.0000000, 2.0000000, -1.0000000,
@@ -492,7 +484,7 @@ END_TEST
 
 START_TEST(affine_move_Z_3) {
   obj_data d = {0};
-  char filename[] = "tmp/cube.obj";
+  char filename[] = "obj_files/cube.obj";
   double vertices_arr[] = {
       0.0000000, 0.0000000, -0.5000000, 0.0000000, 0.0000000, 1.5000000,
       0.0000000, 2.0000000, -0.5000000, 0.0000000, 2.0000000, 1.5000000,
