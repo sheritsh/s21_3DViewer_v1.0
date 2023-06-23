@@ -1,6 +1,7 @@
 #ifndef C8_3DVIEWER_V1_0_1_S21_3DVIEWER_H
 #define C8_3DVIEWER_V1_0_1_S21_3DVIEWER_H
 
+#define _GNU_SOURCE
 #include <math.h>
 #include <stdbool.h>
 #include <stdio.h>

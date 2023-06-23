@@ -1,7 +1,7 @@
 TARGET = 3dViewer
 
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -std=c11
+CFLAGS = -Wall -Werror -Wextra -std=c11 -g
 OS = $(shell uname)
 MODULES = $(wildcard modules/*.c)
 OBJECTS = $(patsubst %.c, %.o, $(MODULES))

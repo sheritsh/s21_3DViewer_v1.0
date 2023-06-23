@@ -127,8 +127,8 @@ int parse_vertices_and_indices(FILE *file, obj_data *data) {
     line = NULL;
   }
 
-  if (!data->vertices_arr[data->vertices_count * 3] ||
-      !data->vertex_indices_arr[data->vertex_indices_count * 2]) {
+  if (!data->vertices_arr[data->vertices_count * 3 - 1] ||
+      !data->vertex_indices_arr[data->vertex_indices_count * 2 - 1]) {
     parse_status = ERROR;
   }
 
