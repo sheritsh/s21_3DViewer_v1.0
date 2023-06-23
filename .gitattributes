@@ -1,1 +1,2 @@
 view/3dViewerUI/3rdparty -linguist-vendored=true
+view/3dViewerUI/3rdparty/** -linguist-vendored=true
