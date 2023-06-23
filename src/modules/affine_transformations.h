@@ -7,7 +7,9 @@
 
 #include "s21_3dviewer.h"
 
+#ifndef M_PI
 #define M_PI 3.14159265358979323846
+#endif  // M_PI
 
 void rotate_X(obj_data *obj, double angle);
 void rotate_Y(obj_data *obj, double angle);

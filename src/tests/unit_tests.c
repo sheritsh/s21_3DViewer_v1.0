@@ -6,27 +6,6 @@
 #define EPS 1e-07
 
 START_TEST(parser_1) {
-  // obj_data d = {0};
-  // char filename[] = "obj_files/cube.obj";
-  // double vertices_arr[] = {0.0, 0.0, 0.0, 0.0, 0.0, 2.0, 0.0, 2.0,
-  //                          0.0, 0.0, 2.0, 2.0, 2.0, 0.0, 0.0, 2.0,
-  //                          0.0, 2.0, 2.0, 2.0, 0.0, 2.0, 2.0, 2.0};
-  // int res = parse_obj_file(filename, &d);
-  // ck_assert_int_eq(res, OK);
-  // ck_assert_int_eq(d.vertex_indices_count, 30);
-  // ck_assert_int_eq(d.vertices_count, 8);
-
-  // int i = 0;
-  // while (i < (int)d.vertices_count * 3) {
-  //   ck_assert_double_eq(d.vertices_arr[i], vertices_arr[i]);
-  //   i++;
-  // }
-  // i = 0;
-  // data_destructor(&d);
-}
-END_TEST
-
-START_TEST(parser_2) {
   obj_data d = {0};
   char filename[] = "obj_files/xxx.obj";
   int res = parse_obj_file(filename, &d);
@@ -34,7 +13,7 @@ START_TEST(parser_2) {
 }
 END_TEST
 
-START_TEST(parser_3) {
+START_TEST(parser_2) {
   obj_data d = {0};
   char *filename = NULL;
   int res = parse_obj_file(filename, &d);
@@ -516,11 +495,6 @@ Suite *lib_suite(void) {
   tc_parser_2 = tcase_create("parser_2");
   suite_add_tcase(s, tc_parser_2);
   tcase_add_test(tc_parser_2, parser_2);
-
-  TCase *tc_parser_3;
-  tc_parser_3 = tcase_create("parser_3");
-  suite_add_tcase(s, tc_parser_3);
-  tcase_add_test(tc_parser_3, parser_3);
 
   TCase *tc_affine_rotate_X_1;
   tc_affine_rotate_X_1 = tcase_create("affine_rotate_X_1");
