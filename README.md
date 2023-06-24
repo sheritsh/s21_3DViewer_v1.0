@@ -6,12 +6,15 @@ Russian version of README you can find [here](./README_RUS.md)
 
 ## Contributors
 
-Created by [// sheritsh](https://github.com/sheritsh) and [// klotzgal](https://github.com/klotzgal).
+|                                     <!-- -->                                |                    <!-- -->                |
+|-----------------------------------------------------------------------------|--------------------------------------------|
+| [![sheritsh_avatar](misc/images/sheritsh.png)](https://github.com/sheritsh) | [// sheritsh](https://github.com/sheritsh) |
+| [![klotzgal_avatar](misc/images/klotzgal.png)](https://github.com/klotzgal) | [// klotzgal](https://github.com/klotzgal) |
 
 ## Contents
 
 1. [Installation and commands](#installation-and-commands)
-2. [Calculator overview](#calculator-overview)
+2. [Calculator overview](#3d-viewer-overview)
 3. [Tests](#tests)
 4. [Technical](#technical-specifications)
 
@@ -42,7 +45,7 @@ You will need the following utilities to install `gcc`, `make` and `qmake`
 - **valgrind_check**  
   Initializes the check of the project by the valgrind utility, after which log files with reports are created
 
-## Calculator overview
+## 3d Viewer overview
 
 ![3dViewer](misc/images/overview.gif)
 
