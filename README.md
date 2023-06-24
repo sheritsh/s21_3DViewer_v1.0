@@ -4,19 +4,17 @@ This project is part of the curriculum of [School 21](https://21-school.ru/). Ba
 
 Russian version of README you can find [here](./README_RUS.md)
 
-## Contributors
-
-|                                     <!-- -->                                |                    <!-- -->                |
-|-----------------------------------------------------------------------------|--------------------------------------------|
-| [![sheritsh_avatar](misc/images/sheritsh.png)](https://github.com/sheritsh) | [// sheritsh](https://github.com/sheritsh) |
-| [![klotzgal_avatar](misc/images/klotzgal.png)](https://github.com/klotzgal) | [// klotzgal](https://github.com/klotzgal) |
-
 ## Contents
 
-1. [Installation and commands](#installation-and-commands)
-2. [3D Viewer overview](#3d-viewer-overview)
-3. [Tests](#tests)
-4. [Technical](#technical-specifications)
+1. [3D Viewer overview](#3d-viewer-overview)
+2. [Installation and commands](#installation-and-commands)
+3. [Contributors](#contributors)
+4. [Tests](#tests)
+5. [Technical specifications](#technical-specifications)
+
+## 3D Viewer overview
+
+![3dViewer](misc/images/overview.gif)
 
 ## Installation and commands
 
@@ -45,9 +43,12 @@ You will need the following utilities to install `gcc`, `make` and `qmake`
 - **valgrind_check**  
   Initializes the check of the project by the valgrind utility, after which log files with reports are created
 
-## 3D Viewer overview
+## Contributors
 
-![3dViewer](misc/images/overview.gif)
+|                       <center> Member </center>                             |              Area of ​​responsibility         |
+|-----------------------------------------------------------------------------|--------------------------------------------|
+| [![sheritsh_avatar](misc/images/sheritsh.png)](https://github.com/sheritsh)<br /> <center>[// sheritsh](https://github.com/sheritsh)</center> | Parser of .obj files <br /> Visual interface / Qt UI <br /> Interaction and logic of application parts |
+| [![klotzgal_avatar](misc/images/klotzgal.png)](https://github.com/klotzgal)<br /> <center>[// klotzgal](https://github.com/klotzgal)</center>| Affine transformations<br />Unit tests <br />Project supporting and tests  |
 
 ## Tests
 
